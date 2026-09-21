@@ -1,114 +1,874 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mayank Lashkari & Co. | Practicing Company Secretaries</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Lashkari & Co. | Practicing Company Secretaries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#07162c',
+                            800: '#0B2545',
+                            700: '#134074',
+                            600: '#1d5494'
+                        },
+                        gold: {
+                            400: '#f3d37a',
+                            500: '#D4AF37',
+                            600: '#AA820A'
+                        },
+                        slateBg: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                        sanskrit: ['"Tiro Devanagari Sanskrit"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .glass-dark {
+            background: rgba(11, 37, 69, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0BD 0%, #D4AF37 50%, #997300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow:hover {
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.35);
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        .hero-pattern {
+            background-color: #07162c;
+            background-image: radial-gradient(#134074 1px, transparent 1px), radial-gradient(#d4af3715 1px, #07162c 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        .nav-link.active {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #D4AF37;
+            margin-top: 2px;
+            border-radius: 2px;
+        }
+
+        /* Pulse aura animation */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.08); }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 6s infinite ease-in-out;
+        }
+
+        /* Tab content transition */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slateBg text-slate-800 font-sans antialiased selection:bg-gold-500 selection:text-white flex flex-col min-h-screen">
 
-  <!-- Header Banner -->
-  <header class="hero">
-    <h1>MAYANK LASHKARI & CO.</h1>
-    <h2>Practicing Company Secretaries</h2>
-    <p class="tagline">Empowering Businesses with Trust, Governance & Compliance</p>
-    <div class="sanskrit-quote">
-      सत्यं वद। धर्मं चर। स्वाध्यायान्मा प्रमदः। <span>(Speak the truth. Abide by the law. Never deviate from your duties. – Taittiriya Upanishad)</span>
+    <!-- Quick WhatsApp Floating Action -->
+    <a href="https://wa.me/917000513258?text=Hello%20CS%20Mayank%20Lashkari,%20I%20would%20like%20to%20inquire%20about%20your%20services." 
+       target="_blank" 
+       rel="noopener"
+       title="Chat on WhatsApp"
+       class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out text-xs font-bold pl-0 group-hover:pl-2">Chat Direct</span>
+    </a>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-navy-900/90 backdrop-blur-md border-b border-gold-500/20 text-white shadow-xl transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand Identifier -->
+                <a href="#home" onclick="navigateToPage('home')" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-navy-800 to-navy-900 border border-gold-500/50 flex items-center justify-center shadow-lg group-hover:border-gold-400 transition-all">
+                        <span class="font-serif font-bold text-xl text-gold-500 tracking-wider">CS</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif font-bold text-lg sm:text-xl tracking-wide text-white group-hover:text-gold-400 transition-colors">MAYANK LASHKARI & CO.</span>
+                        <span class="text-[10px] sm:text-xs text-slate-300 tracking-widest uppercase font-medium">Practicing Company Secretaries</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <button onclick="navigateToPage('home')" class="nav-link text-sm font-medium text-slate-200 hover:text-gold-400 transition-colors active" data-page="home">Home</button>
+                    <button onclick="navigateToPage('about')" class="nav-link text-sm font-medium text-slate-200 hover:text-gold-400 transition-colors" data-page="about">About Us</button>
+                    <button onclick="navigateToPage('niche')" class="nav-link text-sm font-medium text-slate-200 hover:text-gold-400 transition-colors" data-page="niche">Our Niche</button>
+                    <button onclick="navigateToPage('proficiencies')" class="nav-link text-sm font-medium text-slate-200 hover:text-gold-400 transition-colors" data-page="proficiencies">Proficiencies</button>
+                    <button onclick="navigateToPage('contact')" class="nav-link text-sm font-medium text-slate-200 hover:text-gold-400 transition-colors" data-page="contact">Connect With Us</button>
+                </nav>
+
+                <!-- Consultation CTA Button -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <button onclick="navigateToPage('contact')" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-navy-900 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-gold-500/30 transition-all duration-300 hover:-translate-y-0.5">
+                        Consult Now
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button type="button" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fas fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div class="md:hidden hidden bg-navy-900/95 border-b border-gold-500/20 px-4 pt-2 pb-6 space-y-3" id="mobile-menu">
+            <button onclick="navigateToPage('home'); toggleMobileMenu()" class="block w-full text-left py-2 text-base font-medium text-slate-200 hover:text-gold-400">Home</button>
+            <button onclick="navigateToPage('about'); toggleMobileMenu()" class="block w-full text-left py-2 text-base font-medium text-slate-200 hover:text-gold-400">About Us</button>
+            <button onclick="navigateToPage('niche'); toggleMobileMenu()" class="block w-full text-left py-2 text-base font-medium text-slate-200 hover:text-gold-400">Our Niche</button>
+            <button onclick="navigateToPage('proficiencies'); toggleMobileMenu()" class="block w-full text-left py-2 text-base font-medium text-slate-200 hover:text-gold-400">Proficiencies</button>
+            <button onclick="navigateToPage('contact'); toggleMobileMenu()" class="block w-full text-left py-2 text-base font-medium text-slate-200 hover:text-gold-400">Connect With Us</button>
+            <div class="pt-2">
+                <button onclick="navigateToPage('contact'); toggleMobileMenu()" class="w-full text-center px-4 py-3 rounded-lg bg-gold-500 text-navy-900 font-bold text-xs uppercase tracking-wider">
+                    Consult Now
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ==================== HOME PAGE VIEW ==================== -->
+        <section id="page-home" class="page-view active">
+            
+            <!-- Hero Banner Section -->
+            <div class="relative hero-pattern text-white py-20 lg:py-28 overflow-hidden min-h-[85vh] flex items-center">
+                <!-- Glowing Ambient Orbs -->
+                <div class="absolute top-1/4 left-10 w-96 h-96 bg-navy-700/40 rounded-full filter blur-3xl animate-pulse-glow pointer-events-none"></div>
+                <div class="absolute bottom-10 right-10 w-80 h-80 bg-gold-500/10 rounded-full filter blur-3xl animate-pulse-glow pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            
+                            <!-- Sanskrit Motto Header Badge -->
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-800/80 border border-gold-500/40 backdrop-blur-md shadow-lg">
+                                <i class="fas fa-quote-left text-gold-400 text-xs"></i>
+                                <span class="font-sanskrit text-gold-400 text-sm sm:text-base tracking-wide">सत्यं वद। धर्मं चर। स्वाध्यायान्मा प्रमदः।</span>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-300 italic font-light max-w-2xl mx-auto lg:mx-0">
+                                "(Speak the truth. Abide by the law. Never deviate from your duties.) – <span class="text-gold-400">Taittiriya Upanishad</span>"
+                            </p>
+
+                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
+                                MAYANK LASHKARI <span class="gold-gradient-text">&amp; CO.</span>
+                            </h1>
+
+                            <p class="text-lg sm:text-2xl font-medium text-gold-400 tracking-wide font-sans">
+                                Practicing Company Secretaries
+                            </p>
+
+                            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                                Empowering Businesses with <strong class="text-white font-semibold">Trust</strong>, <strong class="text-white font-semibold">Governance</strong> &amp; <strong class="text-white font-semibold">Compliance</strong>. Premier corporate secretarial solutions tailored for growth and legal assurance.
+                            </p>
+
+                            <!-- CTAs -->
+                            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                <button onclick="navigateToPage('contact')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-500 via-gold-400 to-gold-600 text-navy-900 font-bold text-sm tracking-wider uppercase shadow-xl hover:shadow-gold-500/20 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <span>Get Advisory Consultation</span>
+                                    <i class="fas fa-arrow-right text-xs"></i>
+                                </button>
+                                <button onclick="navigateToPage('niche')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-navy-800/80 hover:bg-navy-700 text-white font-medium text-sm border border-gold-500/30 hover:border-gold-400 transition-all duration-300 flex items-center justify-center gap-2">
+                                    <i class="fas fa-layer-group text-gold-400"></i>
+                                    <span>Explore Niche Services</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Animated Card Container -->
+                        <div class="lg:col-span-5">
+                            <div class="glass-dark rounded-2xl p-8 relative shadow-2xl border border-gold-500/30 space-y-6">
+                                <div class="absolute -top-4 -right-4 bg-gold-500 text-navy-900 text-xs font-bold font-serif px-4 py-1.5 rounded-full shadow-lg">
+                                    QUALIFIED ICSI MEMBER
+                                </div>
+
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-full bg-navy-800 border-2 border-gold-400 flex items-center justify-center text-gold-400 text-2xl font-serif font-bold shadow-inner">
+                                        CS
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">CS Mayank Lashkari</h3>
+                                        <p class="text-xs text-gold-400 font-medium">Principal Consultant</p>
+                                        <p class="text-xs text-slate-300">15+ Years Corporate Experience</p>
+                                    </div>
+                                </div>
+
+                                <hr class="border-slate-700/60">
+
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-xs text-slate-200">High-quality, cost-effective corporate compliance structures.</p>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-xs text-slate-200">End-to-End Capital Markets & SME IPO Advisory.</p>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-xs text-slate-200">SEBI Regulations, Secretarial & Internal Corporate Audits.</p>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2">
+                                    <a href="tel:+917000513258" class="w-full py-3 px-4 rounded-lg bg-navy-800 hover:bg-navy-700 text-slate-200 border border-slate-700 hover:border-gold-400 flex items-center justify-between text-xs font-medium transition-all">
+                                        <span><i class="fas fa-phone-alt text-gold-400 mr-2"></i> Direct Hotline: (+91) 7000513258</span>
+                                        <i class="fas fa-chevron-right text-[10px]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar Counter Section -->
+            <div class="bg-navy-800 border-y border-gold-500/20 py-10 text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div class="p-4">
+                            <div class="text-3xl sm:text-4xl font-serif font-bold text-gold-400 mb-1" id="counter-exp">15+</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium">Years Experience</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-3xl sm:text-4xl font-serif font-bold text-gold-400 mb-1">100%</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium">Regulatory Compliance</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-3xl sm:text-4xl font-serif font-bold text-gold-400 mb-1">4+</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium">Core Practice Pillars</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-3xl sm:text-4xl font-serif font-bold text-gold-400 mb-1">Pan-India</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium">Advisory Scope</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Niche Teaser Grid -->
+            <div class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-gold-600 tracking-widest uppercase mb-2">Our Specialized Core</h2>
+                    <p class="text-3xl font-serif font-bold text-navy-900">Corporate Compliance &amp; Legal Niche</p>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Tile 1 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-lg bg-navy-800 text-gold-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3 class="font-bold text-navy-900 text-lg mb-2">Corporate Secretarial</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">Entity incorporations, conversions, share restructuring, and statutory record maintenance.</p>
+                        </div>
+                        <button onclick="navigateToPage('niche')" class="text-xs font-bold text-gold-600 hover:text-gold-500 flex items-center gap-1">Read Details <i class="fas fa-arrow-right text-[10px]"></i></button>
+                    </div>
+
+                    <!-- Tile 2 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-lg bg-navy-800 text-gold-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="font-bold text-navy-900 text-lg mb-2">Capital Markets &amp; SME IPO</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">End-to-end SME IPO management, DRHP/RHP drafting, and merchant banker coordination.</p>
+                        </div>
+                        <button onclick="navigateToPage('niche')" class="text-xs font-bold text-gold-600 hover:text-gold-500 flex items-center gap-1">Read Details <i class="fas fa-arrow-right text-[10px]"></i></button>
+                    </div>
+
+                    <!-- Tile 3 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-lg bg-navy-800 text-gold-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h3 class="font-bold text-navy-900 text-lg mb-2">SEBI &amp; Listing</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">SEBI LODR, SAST, PIT compliance, stock exchange disclosures &amp; SDD compliance.</p>
+                        </div>
+                        <button onclick="navigateToPage('niche')" class="text-xs font-bold text-gold-600 hover:text-gold-500 flex items-center gap-1">Read Details <i class="fas fa-arrow-right text-[10px]"></i></button>
+                    </div>
+
+                    <!-- Tile 4 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-lg bg-navy-800 text-gold-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <h3 class="font-bold text-navy-900 text-lg mb-2">Audit &amp; Drafting</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">Secretarial &amp; internal audits, commercial legal agreements, and deed drafting.</p>
+                        </div>
+                        <button onclick="navigateToPage('niche')" class="text-xs font-bold text-gold-600 hover:text-gold-500 flex items-center gap-1">Read Details <i class="fas fa-arrow-right text-[10px]"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT PAGE VIEW ==================== -->
+        <section id="page-about" class="page-view py-16 bg-slateBg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-gold-600 tracking-widest uppercase mb-2">Firm Profile</h2>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold text-navy-900">ABOUT THE FIRM</h1>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <div class="lg:col-span-7 bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-slate-200/80 space-y-6">
+                        <div class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/30 text-gold-600 font-bold text-xs rounded-md">
+                            CS Mayank Lashkari | Lead Consultant
+                        </div>
+                        
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            <strong class="text-navy-900 font-bold">Mayank Lashkari &amp; Co.</strong> is a premier secretarial and compliance firm led by <strong class="text-navy-900">CS Mayank Lashkari</strong>, a qualified Member of the Institute of Company Secretaries of India (ICSI) with <strong class="text-gold-600 font-semibold">15 years of robust corporate experience</strong>.
+                        </p>
+
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Guided by the founding pillars of integrity, transparency, and diligence, we deliver high-quality, cost-effective corporate compliance structures that empower businesses to confidently seize expansion and listing opportunities.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <div class="text-gold-600 font-bold text-lg mb-1"><i class="fas fa-shield-alt mr-2"></i>Trust &amp; Integrity</div>
+                                <p class="text-xs text-slate-500">Precision-led strategic solutions tailored to regulatory mandates.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <div class="text-gold-600 font-bold text-lg mb-1"><i class="fas fa-chart-pie mr-2"></i>Business-Centric</div>
+                                <p class="text-xs text-slate-500">Maximizing legal safety while promoting business profitability.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-navy-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden border border-gold-500/30">
+                            <div class="absolute -bottom-10 -right-10 text-navy-800 text-9xl font-serif pointer-events-none font-bold select-none opacity-40">
+                                CS
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gold-400 mb-4">Professional Commitment</h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                                "Our mission is to safeguard corporate governance while streamlining complex regulatory frameworks so business leaders can focus on scaling enterprise value."
+                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 text-xs text-slate-200">
+                                    <i class="fas fa-check-circle text-gold-400"></i>
+                                    <span>Qualified ICSI Fellow Governance Standards</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs text-slate-200">
+                                    <i class="fas fa-check-circle text-gold-400"></i>
+                                    <span>Manufacturing to Financial Sector Expertise</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs text-slate-200">
+                                    <i class="fas fa-check-circle text-gold-400"></i>
+                                    <span>Time-Bound Strategic Execution</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== OUR NICHE PAGE VIEW ==================== -->
+        <section id="page-niche" class="page-view py-16 bg-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-gold-600 tracking-widest uppercase mb-2">Practice Specialties</h2>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold text-navy-900">OUR NICHE &amp; SERVICES</h1>
+                    <p class="text-slate-600 text-sm mt-3">Comprehensive compliance and advisory solutions tailored for private, public, and listed entities.</p>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Pillar 1 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 gold-border-glow transition-all">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center text-2xl shadow-md">
+                                <i class="fas fa-city"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-gold-600">Pillar I</span>
+                                <h3 class="text-xl font-bold text-navy-900">Corporate Secretarial &amp; ROC Compliance</h3>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Entity Incorporation:</strong> Private/Public Companies, Section 8, LLPs, and Business Conversions.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Critical Corporate Actions:</strong> Share capital restructuring, board room reconstitutions, registered office shifting, and charge management.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Exit &amp; Strike-Off:</strong> Fast-track corporate closures &amp; strike-offs.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Regulatory E-Filing &amp; XBRL:</strong> MCA compliance filings, XBRL conversion &amp; submission.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Governance &amp; Statutory Records:</strong> Board/AGM meeting administration, statutory register maintenance, and Secretarial Standards adherence.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 gold-border-glow transition-all">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center text-2xl shadow-md">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-gold-600">Pillar II</span>
+                                <h3 class="text-xl font-bold text-navy-900">Capital Markets &amp; SME IPOs</h3>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>SME IPO Advisory:</strong> Structuring companies for public market capital raising.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>End-to-End Management:</strong> Steering companies through the complete SME IPO process.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>DRHP &amp; RHP Filings:</strong> Drafting Prospectus documents with regulatory accuracy.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Regulatory Coordination:</strong> Interfacing with Merchant Bankers, SEBI, stock exchanges &amp; registrar bodies.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Post Listing Compliances:</strong> Ongoing post-IPO statutory reporting.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 gold-border-glow transition-all">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center text-2xl shadow-md">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-gold-600">Pillar III</span>
+                                <h3 class="text-xl font-bold text-navy-900">Listing Regulation &amp; SEBI Compliance</h3>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>SEBI Regulations:</strong> Strict adherence to SEBI LODR, SAST, and PIT codes.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Stock Exchange Submissions:</strong> Timely disclosures and filing workflows.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>SDD Compliance:</strong> Structured Digital Database setup &amp; maintenance.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>E-Voting Procedures:</strong> Managing shareholder voting &amp; scrutinizer roles.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Investor Relations:</strong> Corporate governance policies and investor interface.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pillar 4 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 gold-border-glow transition-all">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center text-2xl shadow-md">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-gold-600">Pillar IV</span>
+                                <h3 class="text-xl font-bold text-navy-900">Audit &amp; Legal Drafting</h3>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Secretarial Audits:</strong> Comprehensive independent statutory secretarial audits.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Internal Governance Audits:</strong> Operational compliance verification.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Legal Drafting:</strong> Shareholder agreements, commercial contracts, and deeds.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-angle-right text-gold-500 mt-0.5"></i>
+                                <span><strong>Audit Coordination:</strong> Liaison with statutory auditors &amp; legal counsels.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== KEY PROFICIENCIES PAGE VIEW ==================== -->
+        <section id="page-proficiencies" class="page-view py-16 bg-slateBg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-gold-600 tracking-widest uppercase mb-2">Why Choose Us</h2>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold text-navy-900">KEY PROFICIENCIES</h1>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 text-center space-y-4 hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-600 flex items-center justify-center text-2xl mx-auto">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy-900">15+ Years Experience</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Diverse multi-industry track record spanning heavy manufacturing sectors to financial institutions, corporate houses, and tech startups.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 text-center space-y-4 hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-600 flex items-center justify-center text-2xl mx-auto">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy-900">Business-Centric Approach</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Aligning rigorous statutory compliance with business goals—maximizing legal safety while actively promoting corporate growth and profitability.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200 text-center space-y-4 hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-600 flex items-center justify-center text-2xl mx-auto">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy-900">Integrity &amp; Excellence</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Time-bound, precision-led strategic solutions designed to meet strict regulatory timelines without compromising quality.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Callout Banner -->
+                <div class="mt-16 bg-navy-900 rounded-2xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl border border-gold-500/30">
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-gold-400">Ready to Elevate Your Corporate Governance?</h3>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-2">Get in touch directly with CS Mayank Lashkari for tailored legal &amp; secretarial advice.</p>
+                    </div>
+                    <button onclick="navigateToPage('contact')" class="px-8 py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex-shrink-0">
+                        Schedule Consultation
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== CONNECT WITH US PAGE VIEW ==================== -->
+        <section id="page-contact" class="page-view py-16 bg-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-gold-600 tracking-widest uppercase mb-2">Get In Touch</h2>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold text-navy-900">CONNECT WITH US</h1>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    
+                    <!-- Contact Cards -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <div class="bg-navy-900 rounded-2xl p-8 text-white shadow-xl border border-gold-500/30 space-y-6">
+                            <h3 class="text-xl font-serif font-bold text-gold-400 border-b border-slate-700/60 pb-3">Office Info</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-navy-800 border border-gold-500/30 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Principal Consultant</p>
+                                        <p class="text-sm font-bold text-white">CS Mayank Lashkari</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-navy-800 border border-gold-500/30 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Phone Contact</p>
+                                        <a href="tel:+917000513258" class="text-sm font-bold text-gold-400 hover:underline">(+91) 7000513258</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-navy-800 border border-gold-500/30 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Email Address</p>
+                                        <a href="mailto:csmayanklashkari@gmail.com" class="text-sm font-bold text-gold-400 hover:underline break-all">csmayanklashkari@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-navy-800 border border-gold-500/30 text-gold-400 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 uppercase font-semibold">Office Location</p>
+                                        <p class="text-sm font-bold text-white">Indore, Madhya Pradesh, India</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-700/60 flex items-center gap-3">
+                                <a href="https://wa.me/917000513258" target="_blank" class="flex-1 py-3 px-4 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-xs text-center transition-all flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp Us
+                                </a>
+                                <a href="tel:+917000513258" class="flex-1 py-3 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold text-xs text-center transition-all flex items-center justify-center gap-2">
+                                    <i class="fas fa-phone"></i> Call Now
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Interactive Consultation Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-white rounded-2xl p-8 shadow-xl border border-slate-200">
+                            <h3 class="text-2xl font-serif font-bold text-navy-900 mb-2">Send an Advisory Request</h3>
+                            <p class="text-xs text-slate-600 mb-6">Fill in your requirements below and our team will get back to you promptly.</p>
+
+                            <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-navy-900 mb-1">Full Name *</label>
+                                        <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-gold-500 text-xs">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-navy-900 mb-1">Phone Number *</label>
+                                        <input type="tel" required placeholder="+91 XXXXX XXXXX" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-gold-500 text-xs">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-navy-900 mb-1">Email Address *</label>
+                                        <input type="email" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-gold-500 text-xs">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-navy-900 mb-1">Service Required</label>
+                                        <select class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-gold-500 text-xs text-slate-700">
+                                            <option>Corporate Secretarial &amp; ROC</option>
+                                            <option>Capital Markets &amp; SME IPO</option>
+                                            <option>SEBI &amp; Listing Compliance</option>
+                                            <option>Secretarial &amp; Internal Audit</option>
+                                            <option>Legal Drafting / General Consultation</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-navy-900 mb-1">Message / Requirements *</label>
+                                    <textarea rows="4" required placeholder="Briefly describe your company compliance or advisory requirement..." class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-gold-500 text-xs"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2">
+                                    <i class="fas fa-paper-plane text-gold-400"></i>
+                                    <span>Submit Consultation Request</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Form Success Notification Modal -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-navy-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl border border-gold-500/30 text-center space-y-4">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900">Request Sent Successfully!</h3>
+            <p class="text-xs text-slate-600">Thank you for connecting with Mayank Lashkari &amp; Co. We have received your inquiry and CS Mayank Lashkari will contact you shortly.</p>
+            <button onclick="closeModal()" class="px-6 py-2.5 rounded-lg bg-navy-900 text-white font-bold text-xs">Close</button>
+        </div>
     </div>
-  </header>
 
-  <main class="container">
-    <!-- About Section -->
-    <section class="card about">
-      <h2>ABOUT THE FIRM</h2>
-      <p>
-        <strong>Mayank Lashkari & Co.</strong> is a premier secretarial and compliance firm led by <strong>CS Mayank Lashkari</strong>, a qualified Member of the ICSI with 15 years of robust corporate experience. Guided by integrity and diligence, we deliver high-quality, cost-effective corporate compliance structures that enable businesses to confidently seize expansion and listing opportunities.
-      </p>
-    </section>
+    <!-- Footer -->
+    <footer class="bg-navy-900 border-t border-gold-500/20 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded bg-navy-800 border border-gold-500/50 flex items-center justify-center font-serif text-gold-500 font-bold">
+                        CS
+                    </div>
+                    <div>
+                        <div class="font-serif font-bold text-base">MAYANK LASHKARI &amp; CO.</div>
+                        <div class="text-[10px] text-slate-400">Practicing Company Secretaries</div>
+                    </div>
+                </div>
 
-    <!-- Niche Section -->
-    <section class="section-title">
-      <h2>OUR NICHE</h2>
-    </section>
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-300">
+                    <button onclick="navigateToPage('home')" class="hover:text-gold-400">Home</button>
+                    <button onclick="navigateToPage('about')" class="hover:text-gold-400">About Us</button>
+                    <button onclick="navigateToPage('niche')" class="hover:text-gold-400">Our Niche</button>
+                    <button onclick="navigateToPage('proficiencies')" class="hover:text-gold-400">Proficiencies</button>
+                    <button onclick="navigateToPage('contact')" class="hover:text-gold-400">Connect</button>
+                </div>
 
-    <div class="niche-grid">
-      <!-- Pillar 1 -->
-      <div class="niche-card">
-        <div class="badge">Corporate Secretarial & ROC Compliance</div>
-        <ul>
-          <li><strong>Entity Incorporation:</strong> Private/Public, Section 8, LLPs, conversions</li>
-          <li>Led critical corporate actions, including share capital restructuring, board room reconstitutions, registered office shifting, and charge management.</li>
-          <li>Exit & Strike-Off</li>
-          <li>Regulatory E-Filing & XBRL</li>
-          <li>Governance & Meetings</li>
-          <li>Statutory Record Maintenance</li>
-          <li>Adherence of Secretarial Standards</li>
-        </ul>
-      </div>
+                <div class="text-xs text-slate-400 text-center md:text-right">
+                    <p>&copy; <span id="year">2026</span> Mayank Lashkari &amp; Co. All Rights Reserved.</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Indore, Madhya Pradesh, India</p>
+                </div>
 
-      <!-- Pillar 2 -->
-      <div class="niche-card">
-        <div class="badge">Capital Markets & SME IPOs</div>
-        <ul>
-          <li>Advisory</li>
-          <li>End-to-end management</li>
-          <li>SME IPO process</li>
-          <li>DRHP & RHP drafting/filing</li>
-          <li>Coordination with Merchant Bankers and Regulatory bodies</li>
-          <li>Post Listing Compliances</li>
-        </ul>
-      </div>
+            </div>
+        </div>
+    </footer>
 
-      <!-- Pillar 3 -->
-      <div class="niche-card">
-        <div class="badge">Listing Regulation & SEBI Compliance</div>
-        <ul>
-          <li>SEBI LODR, SAST, PIT adherence</li>
-          <li>Disclosures, stock exchange submissions</li>
-          <li>SDD Compliance</li>
-          <li>E-Voting Procedure</li>
-          <li>Investor Relations & Corporate Governance</li>
-        </ul>
-      </div>
+    <script>
+        // Page Navigation Controller
+        function navigateToPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.remove('active'));
 
-      <!-- Pillar 4 -->
-      <div class="niche-card">
-        <div class="badge">Audit & Legal Drafting</div>
-        <ul>
-          <li>Secretarial & Internal Audits</li>
-          <li>Legal agreements, commercial deeds</li>
-          <li>Coordination with auditors/counsel</li>
-        </ul>
-      </div>
-    </div>
+            // Show selected page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
 
-    <!-- Key Proficiencies -->
-    <section class="card proficiencies">
-      <h2>KEY PROFICIENCIES</h2>
-      <ul>
-        <li>✔️ <strong>15+ Years of Diverse Industry Experience</strong> (heavy manufacturing to financial institutions)</li>
-        <li>✔️ <strong>Business-Centric Approach</strong> (maximizing safety, promoting profitability)</li>
-        <li>✔️ <strong>Integrity & Excellence</strong> (time-bound, precision-led strategic solutions)</li>
-      </ul>
-    </section>
+            // Update Nav Active State
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
 
-    <!-- Contact Section -->
-    <section class="card contact">
-      <h2>CONNECT WITH US</h2>
-      <div class="contact-details">
-        <p><strong>Principal Consultant:</strong> CS Mayank Lashkari</p>
-        <p><strong>📞 Phone:</strong> <a href="tel:+917000513258">(+91) 7000513258</a></p>
-        <p><strong>✉️ Email:</strong> <a href="mailto:csmayanklashkari@gmail.com">csmayanklashkari@gmail.com</a></p>
-        <p><strong>📍 Office:</strong> Indore, Madhya Pradesh, India</p>
-      </div>
-    </section>
-  </main>
+            // Scroll to top of window smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-  <footer>
-    <p>&copy; Mayank Lashkari & Co. All Rights Reserved.</p>
-  </footer>
+        // Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
 
+        // Form Submit Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            document.getElementById('modal-backdrop').classList.remove('hidden');
+            document.getElementById('contact-form').reset();
+        }
+
+        // Modal Close Handler
+        function closeModal() {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+        }
+
+        // Dynamic Footer Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
